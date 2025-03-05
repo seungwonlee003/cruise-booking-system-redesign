@@ -7,6 +7,7 @@ import com.example.cruise_seat_reservation_system.repository.TripRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,5 +28,10 @@ public class TripService {
     public List<SeatReservation> getAllSeatsByTripId(Long tripId) {
         Trip trip = getTripById(tripId).orElseThrow(() -> new RuntimeException("Trip not found"));
         return seatReservationRepository.findAllByTrip(trip);
+    }
+
+    public List<SeatReservation> getAllAvailableSeatsByTripId(Long tripId) {
+        Trip trip = getTripById(tripId).orElseThrow(() -> new RuntimeException("Trip not found"));
+        return seatReservationRepository.findAllAvailableSeatsByTrip(trip, LocalDateTime.now());
     }
 }

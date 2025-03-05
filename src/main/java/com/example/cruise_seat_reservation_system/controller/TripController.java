@@ -34,5 +34,9 @@ public class TripController {
         return ResponseEntity.ok(seatReservations);
     }
 
-    // get all reservable seats by trip id
+    @GetMapping("/{tripId}/seats/available")
+    public ResponseEntity<List<SeatReservation>> getAllAvailableSeatsByTripId(@PathVariable Long tripId){
+        List<SeatReservation> seatReservations = tripService.getAllAvailableSeatsByTripId(tripId);
+        return ResponseEntity.ok(seatReservations);
+    }
 }

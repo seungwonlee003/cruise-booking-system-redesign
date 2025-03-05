@@ -22,10 +22,9 @@ public class SeatService {
 
     @Transactional
     public SeatReservation reserveSeat(Long seatId, Long userId){
-        // check if the seat exists
         SeatReservation seatReservation = seatReservationRepository.findById(seatId).orElseThrow(() -> new RuntimeException("Seat Not Found"));
-        // check if someone has reserved it and if so check its expiry time
-        if(seatReservation.getReservedByUserId() != null && seatReservation.getExpirationTime().isBefore(LocalDateTime.now())) throw new RuntimeException("Another user has reserved it already");
+
+        if(seatReservation.getExpirationTime() != null && seatReservation.getExpirationTime().isBefore(LocalDateTime.now())) throw new RuntimeException("Another user has reserved it already");
 
         seatReservation.setReservationStatus(ReservationStatus.PENDING);
         seatReservation.setReservedByUserId(userId);
