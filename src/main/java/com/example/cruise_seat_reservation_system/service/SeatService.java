@@ -14,7 +14,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class SeatService {
 
-    SeatReservationRepository seatReservationRepository;
+    private final SeatReservationRepository seatReservationRepository;
 
     public Optional<SeatReservation> getSeat(Long seatId) {
         return seatReservationRepository.findById(seatId);
@@ -24,7 +24,7 @@ public class SeatService {
     public SeatReservation reserveSeat(Long seatId, Long userId){
         SeatReservation seatReservation = seatReservationRepository.findById(seatId).orElseThrow(() -> new RuntimeException("Seat Not Found"));
 
-        if(seatReservation.getExpirationTime() != null && seatReservation.getExpirationTime().isBefore(LocalDateTime.now())) throw new RuntimeException("Another user has reserved it already");
+        if(seatReservation.getExpirationTime() != null && seatReservation.getExpirationTime().isAfter(LocalDateTime.now())) throw new RuntimeException("Another user has reserved it already");
 
         seatReservation.setReservationStatus(ReservationStatus.PENDING);
         seatReservation.setReservedByUserId(userId);

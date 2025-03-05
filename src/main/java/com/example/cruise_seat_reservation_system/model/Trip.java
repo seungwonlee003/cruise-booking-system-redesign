@@ -20,8 +20,6 @@ public class Trip {
     @JoinColumn(name = "ship_id", nullable = false)
     private Ship ship;
 
-    private int seatCount;
-
     private String startLocation;
 
     private String endLocation;

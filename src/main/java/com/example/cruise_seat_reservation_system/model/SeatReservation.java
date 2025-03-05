@@ -20,9 +20,6 @@ public class SeatReservation {
     @JoinColumn(name = "trip_id", nullable = false)
     private Trip trip;
 
-    @Column(name = "seat_number", nullable = false)
-    private int seatNumber;
-
     private String transactionId;
 
     @Enumerated(EnumType.STRING)
