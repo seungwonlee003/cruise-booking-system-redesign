@@ -1,4 +1,4 @@
-package com.example.cruise_seat_reservation_system.concurrency;
+package com.example.cruise_seat_reservation_system;
 
 import com.example.cruise_seat_reservation_system.model.ReservationStatus;
 import com.example.cruise_seat_reservation_system.model.SeatReservation;
@@ -14,13 +14,17 @@ import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class test {
+public class SeatReservationServiceTest {
 
     @Autowired
     private SeatService seatService;
@@ -37,7 +41,7 @@ public class test {
     private Long seatId;
 
     @BeforeAll
-    public void beforeAll(){
+    void beforeAll(){
         Ship ship = new Ship();
         shipRepository.save(ship);
 
@@ -53,23 +57,66 @@ public class test {
     }
 
     @Test
-    public void sequential_test() {
-        int userCount = 20;
-        AtomicInteger successCount = new AtomicInteger();
-        AtomicInteger failureCount = new AtomicInteger();
+    void shouldReserveSeatSequentiallyWithOnlyOneSuccess() {
+        final int userCount = 20;
+        final AtomicInteger successCount = new AtomicInteger();
+        final AtomicInteger failureCount = new AtomicInteger();
 
         for (int i = 0; i < userCount; i++) {
+            final long userId = i + 1;
             try {
-                seatService.reserveSeat(seatId, (long) (i + 1));
+                seatService.reserveSeat(seatId, userId);
                 successCount.incrementAndGet();
-            } catch (Exception e) {
+            } catch (Exception ex) {
                 failureCount.incrementAndGet();
             }
         }
+
         System.out.println("Success: " + successCount.get());
         System.out.println("Failure: " + failureCount.get());
 
-        // then
         assertThat(successCount.get()).isEqualTo(1);
     }
+
+    @Test
+    void shouldReserveSeatConcurrentlyWithOnlyOneSuccess() throws InterruptedException {
+        final int userCount = 20;
+        final ExecutorService executorService = Executors.newFixedThreadPool(userCount);
+        final CountDownLatch countDownLatch = new CountDownLatch(userCount);
+
+        final AtomicInteger successCount = new AtomicInteger();
+        final AtomicInteger failureCount = new AtomicInteger();
+
+        // Start timing
+        long startTime = System.nanoTime();
+
+        for (int i = 0; i < userCount; i++) {
+            final long userId = i + 1;
+            executorService.submit(() -> {
+                try {
+                    seatService.reserveSeat(seatId, userId);
+                    successCount.incrementAndGet();
+                } catch (Exception ex) {
+                    failureCount.incrementAndGet();
+                } finally {
+                    countDownLatch.countDown();
+                }
+            });
+        }
+
+        countDownLatch.await();
+        executorService.shutdown();
+
+        // Stop timing
+        long endTime = System.nanoTime();
+        long elapsedNanos = endTime - startTime;
+        long elapsedMillis = TimeUnit.NANOSECONDS.toMillis(elapsedNanos);
+
+        System.out.println("Success: " + successCount.get());
+        System.out.println("Failure: " + failureCount.get());
+        System.out.println("Elapsed Time: " + elapsedMillis + " ms");
+
+        assertThat(successCount.get()).isEqualTo(1);
+    }
+
 }

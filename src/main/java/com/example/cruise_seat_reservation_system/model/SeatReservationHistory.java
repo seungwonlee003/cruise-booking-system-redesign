@@ -28,7 +28,6 @@ public class SeatReservationHistory {
     @Enumerated(EnumType.STRING)
     @Column(name = "new_status", nullable = false)
     private ReservationStatus newStatus;
-    // can be ANY of AVAILABLE, PENDING, PAID, WAITING_FOR_REFUND, REFUNDED
 
     private Long changedByUserId;
 
