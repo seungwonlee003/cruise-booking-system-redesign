@@ -32,6 +32,8 @@ public class SeatReservation {
 
     private String paymentIntentId;
 
+    private LocalDateTime reservedTime;
+
 //    @Version
 //    private Long version;
 }

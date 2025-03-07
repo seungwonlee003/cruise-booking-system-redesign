@@ -19,6 +19,6 @@ public class PaymentController {
     @PostMapping("/webhooks")
     public ResponseEntity<String> handleWebhook(@RequestBody Payment paymentPayload){
         paymentService.handleWebhook(paymentPayload);
-        return ResponseEntity.ok("Success");
+        return ResponseEntity.ok("Payment processed successfully");
     }
 }

@@ -35,7 +35,7 @@ public class TripController {
     }
 
     @GetMapping("/{tripId}/seats/available")
-    public ResponseEntity<List<SeatReservation>> getAllAvailableSeatsByTripId(@PathVariable Long tripId){
+    public ResponseEntity<List<SeatReservation>> getAllAvailableSeatsByTripId(@PathVariable Long tripId) {
         List<SeatReservation> seatReservations = tripService.getAllAvailableSeatsByTripId(tripId);
         return ResponseEntity.ok(seatReservations);
     }

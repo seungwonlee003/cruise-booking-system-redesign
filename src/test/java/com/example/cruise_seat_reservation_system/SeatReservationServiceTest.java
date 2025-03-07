@@ -9,6 +9,7 @@ import com.example.cruise_seat_reservation_system.repository.ShipRepository;
 import com.example.cruise_seat_reservation_system.repository.TripRepository;
 import com.example.cruise_seat_reservation_system.service.SeatService;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,8 +41,8 @@ public class SeatReservationServiceTest {
 
     private Long seatId;
 
-    @BeforeAll
-    void beforeAll(){
+    @BeforeEach
+    void setup(){
         Ship ship = new Ship();
         shipRepository.save(ship);
 

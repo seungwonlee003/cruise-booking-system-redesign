@@ -2,12 +2,9 @@ package com.example.cruise_seat_reservation_system.service;
 
 import com.example.cruise_seat_reservation_system.model.ReservationStatus;
 import com.example.cruise_seat_reservation_system.model.SeatReservation;
-import com.example.cruise_seat_reservation_system.model.SeatReservationHistory;
-import com.example.cruise_seat_reservation_system.repository.SeatReservationHistoryRepository;
 import com.example.cruise_seat_reservation_system.repository.SeatReservationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
@@ -18,8 +15,6 @@ import java.util.Optional;
 public class SeatService {
 
     private final SeatReservationRepository seatReservationRepository;
-
-    private final SeatReservationHistoryRepository seatReservationHistoryRepository;
 
     private static final long EXPIRATION_TIME = 10;
 
@@ -33,13 +28,6 @@ public class SeatService {
         SeatReservation seatReservation = seatReservationRepository.findById(seatId).orElseThrow(() -> new RuntimeException("Seat Not Found"));
 
         if(seatReservation.getExpirationTime() != null && seatReservation.getExpirationTime().isAfter(LocalDateTime.now())) throw new RuntimeException("Another user has reserved it already");
-
-        SeatReservationHistory seatReservationHistory = new SeatReservationHistory();
-        seatReservationHistory.setSeatReservation(seatReservation);
-        seatReservationHistory.setOldStatus(seatReservation.getReservationStatus());
-        seatReservationHistory.setNewStatus(ReservationStatus.PENDING);
-        seatReservationHistory.setChangedByUserId(userId);
-        seatReservationHistory.setChangedTimestamp(LocalDateTime.now());
 
         seatReservation.setReservationStatus(ReservationStatus.PENDING);
         seatReservation.setReservedByUserId(userId);
@@ -72,14 +60,6 @@ public class SeatService {
 //        // Now we can fetch the seat from DB to return it (and to record the new state).
 //        SeatReservation seatReservation = seatReservationRepository.findById(seatId)
 //                .orElseThrow(() -> new RuntimeException("Seat Not Found after update!"));
-//
-//        // Create history record – for the old status you can decide how to handle that logic.
-//        SeatReservationHistory seatReservationHistory = new SeatReservationHistory();
-//        seatReservationHistory.setSeatReservation(seatReservation);
-//        seatReservationHistory.setOldStatus(ReservationStatus.AVAILABLE); // or however you want to handle old status
-//        seatReservationHistory.setNewStatus(ReservationStatus.PENDING);
-//        seatReservationHistory.setChangedByUserId(userId);
-//        seatReservationHistory.setChangedTimestamp(now);
 //
 //        return seatReservation;
 //    }
