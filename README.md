@@ -8,9 +8,9 @@ The **Cruise Seat Reservation System** is a highly scalable, concurrency-optimiz
 For a detailed breakdown of the concurrency handling and scalability features, check out my [Notion documentation](https://witty-neptune-851.notion.site/Concurrency-and-Scalability-in-Cruise-Ticket-Reservation-API-17fae38b9319803cb19ed4d749b076f2).
 
 ## Features
-✅ **Two-Phase Booking**: Guarantees a first-come, first-served model to prevent race conditions.  
-✅ **High-Concurrency Handling**: Uses atomic operations to ensure consistency when multiple users attempt to reserve the same seat.  
-✅ **Idempotent webhook processing**: Ensures refunds in case of unexpected errors or failures.
+- **Two-Phase Booking**: Guarantees a first-come, first-served model to prevent race conditions.
+- **High-Concurrency Handling**: Uses atomic operations to ensure consistency when multiple users attempt to reserve the same seat.
+- **Idempotent webhook processing**: Ensures refunds in case of unexpected errors or failures.
 
 
 ## Tech Stack
