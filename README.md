@@ -21,7 +21,7 @@ For a detailed breakdown of the concurrency handling and scalability features, c
 ## Project Structure
 ```bash
 cruise-seat-reservation/
-├── .mvn/                                    # Maven wrapper files
+├── .mvn/                                # Maven wrapper files
 ├── src/
 │   ├── main/
 │   │   ├── java/com/example/cruise_seat_reservation_system/
