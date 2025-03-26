@@ -2,7 +2,7 @@
 # 🚢 Cruise Seat Reservation System 🎟️
 
 ## Overview
-The **Cruise Seat Reservation System** is a highly scalable, concurrency-optimized booking backend designed for cruise ticket reservations. Inspired by my frustration with user inconveniences on the Ticket30 platform—such as booking delays and overbooking errors—I built this project to address those inefficiencies. It ensures fair seat allocation under high traffic loads and delivers a robust, error-resistant backend that eliminates common UX pain points through optimized design and reliable processing.
+The **Cruise Seat Reservation System** is a booking backend designed for cruise ticket reservations. Inspired by my frustration with user inconveniences on the Ticket30 platform—such as booking delays and overbooking errors—I built this project to address those inefficiencies. It ensures fair seat allocation under moderate traffic loads and delivers error-resistant backend that eliminates common UX pain points through optimized design and reliable processing.
 
 ## Documentation
 For a detailed breakdown of the concurrency handling and scalability features, check out my [Notion documentation](https://witty-neptune-851.notion.site/Concurrency-and-Scalability-in-Cruise-Ticket-Reservation-API-17fae38b9319803cb19ed4d749b076f2).
