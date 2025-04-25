@@ -28,8 +28,6 @@ POST /payments/webhooks - Handle payment status updates from your payment provid
 ```
 
 ## Article
-I wrote two articles to reflect on the troubleshooting details:
+If you are interested in the troubleshooting details:
 
-Article 1: 
-
-Article 2:
+Article: 
