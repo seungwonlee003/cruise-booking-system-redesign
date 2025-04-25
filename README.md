@@ -1,4 +1,4 @@
-# Cruise Seat Reservation System 
+# Cruise Booking System Redesign
 
 ## Introduction
 This is a backend-side improvement of the original service (app): "가보고 싶은 섬" (Ticket30).
