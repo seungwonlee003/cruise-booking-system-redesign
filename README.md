@@ -1,8 +1,9 @@
 # Cruise Booking System Redesign
 
 ## Introduction
-This is a backend-side improvement of the original service (app): "가보고 싶은 섬" (Ticket30).
-While not being a fully fledged service, it addresses the server-side specific pain points the author has experienced from the original platform and explores tricky edge cases such as concurrency in booking and payment.
+This project is a backend-focused improvement of the original service, “가보고 싶은 섬” (Ticket30).
+
+While not a fully-fledged production service, it aims to address specific server-side pain points the author encountered in the original platform. It also explores complex scenarios such as concurrency issues in booking and payment flows.
 
 ## Features
 1. Faster-Payment-Wins: Uses a two-phase booking design with a fencing token to prevent a later seat acquirer from winning by completing payment faster.
