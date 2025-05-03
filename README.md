@@ -10,8 +10,7 @@ I aimed to address specific server-side pain points I encountered in the origina
 3. Webhook Idempotency: Ensures idempotency in payment webhooks, handling network partition scenarios when contacting third-party APIs. 
 
 ## Article
-If you are interested in the troubleshooting details:
-Article: 
+If you are interested in the troubleshooting details, please visit: 
 
 ## Endpoints
 
