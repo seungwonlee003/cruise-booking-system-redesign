@@ -6,7 +6,7 @@ I aimed to address specific server-side pain points I encountered in the origina
 
 ## Features
 1. Faster-Payment-Wins: Uses a two-phase booking design with a fencing token to prevent a later seat acquirer from winning by completing payment faster.
-2. Booking Consistency: Resolves concurrency issues from relational database transactional isolation levels using atomic queries.
+2. Booking Consistency: Resolves concurrency issues from relational database's transactional isolation levels using atomic queries.
 3. Webhook Idempotency: Ensures idempotency in payment webhooks, handling network partition scenarios when contacting third-party APIs. 
 
 ## Article
